@@ -142,9 +142,19 @@ const Mutation=new GraphQLObjectType({
                 });
                 return book.save();
             }
+        },
+        deleteBook:{
+            type:BookType,
+            args:{
+                id:{type: GraphQLID}
+            },
+            resolve(parent, args) {
+                let book=Book.findById(args.id);
+                return book.deleteOne();
+              }
         }
     }
-})
+});
 
 module.exports = new GraphQLSchema({
     query: RootQuery,
